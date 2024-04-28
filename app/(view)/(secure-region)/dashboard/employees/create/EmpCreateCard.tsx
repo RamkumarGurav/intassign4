@@ -380,7 +380,7 @@ export default function EmpCreateCard() {
                     width={500}
                     height={500}
                     alt="Picture of the author"
-                    className="object-cover border  w-[100px] h-[80px]"
+                    className="object-cover border  w-[80px] h-[80px]"
                   />
                 </div>
               )}

@@ -11,7 +11,7 @@ export default function EmployeesEditPage({
 }) {
   const id = params.slug;
   const { data, isError, isLoading, refetch, error } = useQuery({
-    queryKey: ["employee"],
+    queryKey: ["employee", { id }],
     queryFn: () => fetcher(`/api/v1/employees/authorised/${id}`),
   });
 

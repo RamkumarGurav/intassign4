@@ -14,19 +14,6 @@ import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
-async function fetchData(path: string) {
-  const res = await fetch(path, {
-    method: "GET",
-    headers: { Cookie: cookies().toString() },
-    credentials: "include", // Ensure cookies are sent in the request
-  });
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-  return await res.json();
-}
 export default async function EmployeesListPage() {
   // const queryClient = new QueryClient();
   // await queryClient.prefetchQuery({

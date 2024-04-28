@@ -1,15 +1,14 @@
-import mongoose, { InferSchemaType } from "mongoose";
+import mongoose from "mongoose";
 
 const Designation = {
-  HR: "hr",
-  SALES: "sales",
-  MANAGER: "manager",
+  HR: "HR",
+  SALES: "Sales",
+  MANAGER: "Manager",
 };
 
 const Gender = {
-  MALE: "male",
-  FEMALE: "female",
-  OTHER: "other",
+  MALE: "Male",
+  FEMALE: "Female",
 };
 
 /* =======================================================================

@@ -73,27 +73,26 @@ const FormSchema = z.object({
   image: z
     .any()
     .optional()
-    .refine(
-      (files) =>{
-        ( files?.[0]?.length) == 0?true:(files?.[0]?.size <= MAX_FILE_SIZE?true:false),
-      "Max file size is 5MB"
-    ).refine(
-      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      ".jpg, and .png files are accepted."
-    )
     .refine((files) => {
-      // Apply validation only if files (image) are provided
-      if (typeof files[0] == "undefined") {
+      // Validation logic for the image field
+      const file = files[0];
+
+      if (files.length == 0) {
         return true;
       } else {
-        if (!Array.isArray(files)) return false; // Must be an array
-        if (files.length !== 1) return false; // Must have exactly one file
-        const file = files[0];
-        if (!file || typeof file !== "object") return false; // File must be an object
-        if (file.size > MAX_FILE_SIZE) return false; // Check file size
-        if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) return false; // Check file type
-      } // If no files, validation passes
-    }, "Only JPG and PNG below 5mb images are allowed."), // Custom error message for validation failure
+        // Check file size
+        if (file.size > MAX_FILE_SIZE) {
+          return false; // Validation fails if file size exceeds the maximum allowed size
+        }
+
+        // Check file type
+        if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
+          return false; // Validation fails if file type is not in the accepted types
+        }
+
+        return true;
+      }
+    }, "Invalid image file or size"), // Custom error message for validation failurely JPG and PNG below 5mb images are allowed."), // Custom error message for validation failure
 });
 
 async function editEmployee(data: any, id: string, imageName: string) {
@@ -386,7 +385,7 @@ export default function EmpEditCard({ empData }: { empData: any }) {
                     width={500}
                     height={500}
                     alt="Picture of the author"
-                    className="object-cover border  w-[100px] h-[80px]"
+                    className="object-cover border  w-[80px] h-[80px]"
                   />
                 </div>
               ) : (
@@ -396,7 +395,7 @@ export default function EmpEditCard({ empData }: { empData: any }) {
                     width={500}
                     height={500}
                     alt="Picture of the author"
-                    className="object-cover border  w-[100px] h-[80px]"
+                    className="object-cover border  w-[80px] h-[80px]"
                   />
                 </div>
               )}
