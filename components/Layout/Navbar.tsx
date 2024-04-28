@@ -24,40 +24,26 @@ export default function Navbar() {
           <Link href="/" className="hover:text-yellow-400">
             Home
           </Link>
-          {userData && (
-            <Link href="/dashboard" className="hover:text-yellow-400">
-              Dashboard
-            </Link>
-          )}
-          {userData && (
-            <Link
-              href="/dashboard/employees/list"
-              className="hover:text-yellow-400"
-            >
-              Employees List
-            </Link>
-          )}
-          {userData && (
-            <div className="flex gap-1">
-              <span>
-                <CircleUser className="text-yellow-300" />
-              </span>
-              <span className="text-yellow-300 font-semibold">
-                {userData?.username}
-              </span>
-            </div>
-          )}
-          {userData !== "" ? (
-            <LogoutButton variant="outline" className="text-black">
-              Logout
-            </LogoutButton>
-          ) : (
-            <Link href="/login">
-              <Button variant="outline" className="text-black">
-                Login
-              </Button>
-            </Link>
-          )}
+          <Link href="/dashboard" className="hover:text-yellow-400">
+            Dashboard
+          </Link>
+          <Link
+            href="/dashboard/employees/list"
+            className="hover:text-yellow-400"
+          >
+            Employees List
+          </Link>
+          <div className="flex gap-1">
+            <span>
+              <CircleUser className="text-yellow-300" />
+            </span>
+            <span className="text-yellow-300 font-semibold">
+              {userData ? userData?.username : "Hi!"}
+            </span>
+          </div>
+          <LogoutButton variant="outline" className="text-black">
+            Logout
+          </LogoutButton>
         </div>
       </div>
     </nav>

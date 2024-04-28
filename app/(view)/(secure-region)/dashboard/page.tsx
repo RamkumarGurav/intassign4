@@ -1,3 +1,9 @@
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Dashboard ",
+  description: "Assignment for my requirement",
+};
+
 export default function Dashboard() {
   return (
     <div className={`p-4 bg-white flex justify-center  min-h-screen`}>

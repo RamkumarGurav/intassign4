@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import EmpEditCard from "./EmpEditCard";
 import { fetcher } from "@/lib/helpers/fetcher";
-import Loading from "@/app/(view)/(secure-region)/loading";
+import Loading from "./loading";
 
 export default function EmployeesEditPage({
   params,
@@ -25,6 +25,7 @@ export default function EmployeesEditPage({
 
   return (
     <section className={` py-4 `}>
+      <title>Edit Employee | Assignment</title>
       <div className={` px-4 mx-auto `}>
         <EmpEditCard empData={data.data} />
       </div>

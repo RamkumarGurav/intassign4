@@ -6,7 +6,7 @@ import Providers from "./providers";
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: {
-    default: "Assignment",
+    default: "Dashboard",
     template: "%s | Assignment",
   },
   description: "This is an assingment done by ramkumar shrikant gurav",

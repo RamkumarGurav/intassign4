@@ -57,7 +57,7 @@ const FormSchema = z.object({
   mobile: z.string().refine((value) => /^\d{10}$/.test(value), {
     message: "Mobile number must be a 10-digit number.",
   }),
-  gender: z.enum(["male", "female"], {
+  gender: z.enum(["Male", "Female"], {
     required_error: "You need to select a gender type.",
   }),
   designation: z.string({
@@ -81,7 +81,6 @@ const FormSchema = z.object({
 });
 
 async function createEmployee(data: any) {
-  console.log("I am createEmployee");
   const formData = new FormData();
 
   formData.append("name", data.name);
@@ -119,7 +118,6 @@ export default function EmpCreateCard() {
     const file = event.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      console.log(imageUrl);
       setSelectedImage(imageUrl);
     } else {
       setSelectedImage(null); // Reset if no file is chosen
@@ -140,12 +138,9 @@ export default function EmpCreateCard() {
   const fileRef = form.register("image");
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(" iam onSubmit");
     setIsSubmitted(true);
     try {
-      console.log("Submitting form with data:", data); // Check form data
       const response = await createEmployee(data);
-      console.log("responseee", response);
       if (response.success) {
         setIsSubmitted(false);
         toast.success("Successfully created employee");
@@ -161,7 +156,6 @@ export default function EmpCreateCard() {
         // router.push('/dashboard');
       } else {
         setIsSubmitted(false);
-        console.log(response);
         toast.error(response.message || "Failed to create employee");
       }
     } catch (error) {
@@ -172,6 +166,7 @@ export default function EmpCreateCard() {
   }
   return (
     <section>
+      <title>Create Employee</title>
       <div className={`flex justify-between items-center gap-4 p-2`}>
         <div>
           <CustomBreadcrumb
@@ -262,13 +257,13 @@ export default function EmpCreateCard() {
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="male" />
+                          <RadioGroupItem value="Male" />
                         </FormControl>
                         <FormLabel className="font-normal">Male</FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="female" />
+                          <RadioGroupItem value="Female" />
                         </FormControl>
                         <FormLabel className="font-normal">Female</FormLabel>
                       </FormItem>
@@ -292,9 +287,9 @@ export default function EmpCreateCard() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="manager">Manager</SelectItem>
-                      <SelectItem value="hr">HR</SelectItem>
-                      <SelectItem value="sales">Sales</SelectItem>
+                      <SelectItem value="Manager">Manager</SelectItem>
+                      <SelectItem value="HR">HR</SelectItem>
+                      <SelectItem value="Sales">Sales</SelectItem>
                     </SelectContent>
                   </Select>
 

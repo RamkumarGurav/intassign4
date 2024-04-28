@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Layout/Navbar";
+import HomeNavbar from "@/components/Layout/HomeNavbar";
+import Footer from "@/components/Layout/Footer";
 export default function Home() {
   return (
     <div>
@@ -16,15 +18,16 @@ export default function Home() {
           </div>
         </div>
       </nav> */}
-      <Navbar />
+      <HomeNavbar />
       <section
         id="Section"
-        className={` py-[35px] sm:py-[50px] sm:px-[35px] xl:px-[70px]`}
+        className={` py-[35px] sm:py-[50px] sm:px-[35px] xl:px-[70px] min-h-screen`}
       >
         <div className={` px-4 mx-auto `}>
-          <h1 className={`text-4xl`}>Section</h1>
+          <h1 className={`text-4xl text-center mt-10`}>Welcome to Home Page</h1>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

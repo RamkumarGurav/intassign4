@@ -129,7 +129,7 @@ export async function GET(req: NextRequest) {
     const search = searchParams.get("search") || "";
     const sortBy = searchParams.get("sortBy") || "createdAt";
     // logger(sortBy);
-    const sortOrder = searchParams.get("sortOrder") || "asc";
+    const sortOrder = searchParams.get("sortOrder") || "desc";
     const status = searchParams.get("status") || "";
     // Construct the filter object based on the status parameter
     const filter = status ? { status } : {};

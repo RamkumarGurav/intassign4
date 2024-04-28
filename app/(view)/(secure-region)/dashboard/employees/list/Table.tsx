@@ -5,13 +5,14 @@ import { Input } from "@/components/ui/input";
 import { fetcher } from "@/lib/helpers/fetcher";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Delete, Loader2, Search } from "lucide-react";
-import Loading from "../../../loading";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CustomBreadcrumb } from "@/components/buttons/CustomBreadcrumb";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-hot-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Loading from "./loading";
+import { TbH1 } from "react-icons/tb";
 
 async function deleteFn(id: string) {
   const res = await fetch(`/api/v1/employees/authorised/${id}`, {
@@ -71,7 +72,7 @@ export default function EmpListTable() {
 
   return (
     <section>
-      <div className={`flex justify-between items-center gap-8 p-2`}>
+      <div className={`flex justify-between items-center gap-8 py-2`}>
         <div>
           <CustomBreadcrumb
             firstBread={{ link: "/", name: "Home" }}
@@ -102,98 +103,112 @@ export default function EmpListTable() {
         </div>
       </div>
 
-      <div className="block w-full overflow-x-auto mt-2">
-        <table className="items-center w-full border-collapse text-blueGray-700  ">
-          <thead className="thead-light bg-xyellow text-gray-950">
+      <div className="block w-full overflow-x-auto mt-2 rounded-xl mx-[2px]">
+        <table className="items-center w-full border-collapse text-blueGray-700   ">
+          <thead className="thead-light bg-blue-900 text-gray-950">
             <tr>
-              <th className="px-6 bg-blueGray-50 text-center  text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+              <th
+                className="  text-center text-white
+               text-base align-middle border border-solid border-blueGray-100 py-3 
+                uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold"
+              >
                 ID
               </th>
-              <th className="px-6 bg-blueGray-50 text-center  text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+              <th className="bg-blueGray-50 text-center text-white text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
                 Image
               </th>
-              <th className="px-6 bg-blueGray-50 text-center  text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+              <th className="bg-blueGray-50 text-center text-white text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
                 Name
               </th>
-              <th className="px-6 bg-blueGray-50 text-center  text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+              <th className="bg-blueGray-50 text-center text-white text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
                 Email
               </th>
-              <th className="px-6 bg-blueGray-50 text-center  text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+              <th className="bg-blueGray-50 text-center text-white text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
                 Mobile No
               </th>
-              <th className="px-6 bg-blueGray-50 text-center  text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+              <th className=" bg-blueGray-50 text-center text-white text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
                 Designation
               </th>
-              <th className="px-6 bg-blueGray-50 text-center  text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+              <th className=" bg-blueGray-50 text-center text-white text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
                 Gender
               </th>
-              {/* <th className="px-6 bg-blueGray-50 text-center  text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
-                Course
-              </th> */}
-              <th className="px-6 bg-blueGray-50 text-center  text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+              <th className=" bg-blueGray-50 text-center text-white text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+                Courses
+              </th>
+              <th className=" bg-blueGray-50 text-center text-white text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
                 Created Date
               </th>
-              <th className="px-6 bg-blueGray-50 text-center  text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+              <th className=" bg-blueGray-50 text-center text-white text-base align-middle border border-solid border-blueGray-100 py-3  uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
                 Action
               </th>
             </tr>
           </thead>
           <tbody>
-            {data.data.map((item: any, i: number) => (
-              <tr key={i}>
-                <th className="border-t-0 px-2 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
-                  {i + 1}
-                </th>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
-                  <Avatar>
-                    <AvatarImage
-                      src={`/uploads/employees/${item.image}`}
-                      alt="@shadcn"
-                    />
-                    <AvatarFallback>{item.name}</AvatarFallback>
-                  </Avatar>
-                </th>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
-                  {item.name}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
-                  {item.email}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
-                  {item.mobile}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
-                  {item.designation}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
-                  {item.gender}
-                </td>
-                {/* <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
-                  {item.course}
-                </td> */}
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
-                  {formatTime(item.createdAt)}
-                </td>
-                <td className="border-t-0 px-6 flex justify-between items-center gap-2  align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
-                  <Link href={`/dashboard/employees/edit/${item._id}`}>
-                    <Button size="sm">Edit</Button>
-                  </Link>
-                  <Button
-                    size="sm"
-                    className="min-w-[40px] p-0 "
-                    variant="destructive"
-                    disabled={mutation.isPending}
-                    onClick={() => mutation.mutate(item._id)}
+            {data.count == 0 && (
+              <h1 className="text-4xl text-center m-10">No Employees </h1>
+            )}
+            {data.count > 0 &&
+              data.data.map((item: any, i: number) => (
+                <tr key={i} className="border-b-gray-400 border-b-[1px]">
+                  <th className="border-t-0  align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
+                    {item._id}
+                  </th>
+                  <th className="border-t-0  align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
+                    <Avatar>
+                      <AvatarImage
+                        src={`/uploads/employees/${item.image}`}
+                        alt="@shadcn"
+                      />
+                      <AvatarFallback>{item.name}</AvatarFallback>
+                    </Avatar>
+                  </th>
+                  <td
+                    className="border-t-0  align-middle border-l-0 border-r-0 text-sm
+                 text-center whitespace-nowrap p-4 "
                   >
-                    {mutation.isPending && mutation.variables === item._id ? (
-                      <Loader2 className=" h-4 w-4 animate-spin" />
-                    ) : (
-                      <MdDelete size={25} />
-                    )}
-                  </Button>
-                </td>
-              </tr>
-            ))}
+                    {item.name}
+                  </td>
+                  <td className="border-t-0  align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
+                    {item.email}
+                  </td>
+                  <td className="border-t-0  align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
+                    {item.mobile}
+                  </td>
+                  <td
+                    className="border-t-0  align-middle border-l-0 border-r-0 text-sm 
+                text-center whitespace-nowrap p-4  "
+                  >
+                    {item.designation}
+                  </td>
+                  <td className="border-t-0  align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
+                    {item.gender}
+                  </td>
+                  <td className="border-t-0  align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
+                    {item.courses.join(",")}
+                  </td>
+                  <td className="border-t-0  align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
+                    {formatTime(item.createdAt)}
+                  </td>
+                  <td className="border-t-0  flex justify-between items-center gap-2  align-middle border-l-0 border-r-0 text-sm text-center whitespace-nowrap p-4 ">
+                    <Link href={`/dashboard/employees/edit/${item._id}`}>
+                      <Button size="sm">Edit</Button>
+                    </Link>
+                    <Button
+                      size="sm"
+                      className="min-w-[40px] p-0 "
+                      variant="destructive"
+                      disabled={mutation.isPending}
+                      onClick={() => mutation.mutate(item._id)}
+                    >
+                      {mutation.isPending && mutation.variables === item._id ? (
+                        <Loader2 className=" h-4 w-4 animate-spin" />
+                      ) : (
+                        <MdDelete size={25} />
+                      )}
+                    </Button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
