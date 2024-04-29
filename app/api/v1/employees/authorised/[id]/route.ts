@@ -109,7 +109,7 @@ export async function PATCH(req: NextRequest, context: { params: any }) {
       // Define upload paths
       const uploadsPath = "public/uploads";
       const targetPath = `${uploadsPath}/employees`;
-      await createFolderIfNotExists(targetPath); // Ensure target folder exists
+      // await createFolderIfNotExists(targetPath); // Ensure target folder exists
 
       // Copy file data into buffer and write to target path
       const byteData = await file.arrayBuffer();

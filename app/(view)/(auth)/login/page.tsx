@@ -8,7 +8,7 @@ export default function InputForm() {
       |||  flex flex-col justify-center items-center`}
     >
       <title>Login</title>
-      <div className="flex gap-1 bg-white p-2 mb-4 rounded-full flex-col justify-center items-center">
+      <div className="flex gap-1  p-2 mb-4 rounded-full flex-col justify-center items-center">
         <p className="font-bold underline">test credentials</p>
         <p> username:Hukum Gupta</p>
         <p>password:hukum1234</p>

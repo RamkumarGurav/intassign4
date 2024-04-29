@@ -171,7 +171,7 @@ export default function EmpCreateCard() {
         <div>
           <CustomBreadcrumb
             firstBread={{ link: "/", name: "Home" }}
-            breads={[{ link: "/dashoard", name: "Dashboard" }]}
+            breads={[{ link: "/dashboard", name: "Dashboard" }]}
             lastBreadName="Create Employee"
           />
         </div>

@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
     // Define upload paths
     const uploadsPath = "public/uploads";
     const targetPath = `${uploadsPath}/employees`;
-    await createFolderIfNotExists(targetPath); // Ensure target folder exists
+    // await createFolderIfNotExists(targetPath); // Ensure target folder exists
 
     // Copy file data into buffer and write to target path
     const byteData = await file.arrayBuffer();

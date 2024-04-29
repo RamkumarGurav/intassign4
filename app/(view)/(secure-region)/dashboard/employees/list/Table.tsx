@@ -76,7 +76,7 @@ export default function EmpListTable() {
         <div>
           <CustomBreadcrumb
             firstBread={{ link: "/", name: "Home" }}
-            breads={[{ link: "/dashoard", name: "Dashboard" }]}
+            breads={[{ link: "/dashboard", name: "Dashboard" }]}
             lastBreadName="Employees List"
           />
         </div>
