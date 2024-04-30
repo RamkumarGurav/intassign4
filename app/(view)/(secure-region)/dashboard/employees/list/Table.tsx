@@ -14,6 +14,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Loading from "./loading";
 import { TbH1 } from "react-icons/tb";
 
+import Image from "next/image";
+
 async function deleteFn(id: string) {
   const res = await fetch(`/api/v1/employees/authorised/${id}`, {
     method: "DELETE",
@@ -154,13 +156,13 @@ export default function EmpListTable() {
                     {item._id}
                   </th>
                   <th className="border-t-0  align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
-                    <Avatar>
-                      <AvatarImage
-                        src={`/uploads/employees/${item.image}`}
-                        alt="@shadcn"
-                      />
-                      <AvatarFallback>{item.name}</AvatarFallback>
-                    </Avatar>
+                    <Image
+                      src={`${item.imageObj.imageUrl}`}
+                      width={500}
+                      height={500}
+                      alt="Picture of the author"
+                      className="w-14 h-14 rounded-full object-cover"
+                    />
                   </th>
                   <td
                     className="border-t-0  align-middle border-l-0 border-r-0 text-sm

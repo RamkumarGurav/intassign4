@@ -108,8 +108,6 @@ async function editEmployee(data: any, id: string, imageName: string) {
   // Append image if present
   if (data.image[0]) {
     formData.append("image", data.image[0]);
-  } else {
-    formData.append("image", imageName);
   }
 
   try {
@@ -160,7 +158,7 @@ export default function EmpEditCard({ empData }: { empData: any }) {
         setIsSubmitted(false);
         toast.success("Successfully updated employee");
 
-        router.refresh();
+        router.push("/dashboard/employees/list");
       } else {
         setIsSubmitted(false);
         toast.error(response.message || "Failed to updatae employee");
@@ -385,7 +383,7 @@ export default function EmpEditCard({ empData }: { empData: any }) {
               ) : (
                 <div>
                   <Image
-                    src={`/uploads/employees/${empData.image}`}
+                    src={`${empData.imageObj.imageUrl}`}
                     width={500}
                     height={500}
                     alt="Picture of the author"

@@ -70,8 +70,18 @@ const EmployeeSchema = new mongoose.Schema(
         message: "At least one course is required",
       },
     },
-    image: {
-      type: String,
+    imageObj: {
+      type: {
+        publicId: {
+          type: String,
+          required: [true, "Cloudinary public_id is required"],
+        },
+        imageUrl: {
+          type: String,
+          required: [true, "Cloudinary image Url is required"],
+        },
+      },
+      required: true, // Ensure imageObj is required
     },
   },
   {

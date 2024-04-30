@@ -151,7 +151,7 @@ export default function EmpCreateCard() {
           courses: [],
           image: null as any,
         });
-        router.refresh();
+        router.push("/dashboard/employees/list");
         // Optionally redirect to another page upon successful submission
         // router.push('/dashboard');
       } else {

@@ -3,19 +3,14 @@ import errorHandler from "@/app/api/_api_lib/helpers/errorHandler";
 import Employee from "@/app/api/_api_models/employeeModel";
 import { ApiError } from "next/dist/server/api-utils";
 import { type NextRequest, NextResponse } from "next/server";
-import fs, { writeFile } from "fs/promises";
+import { cldUpload } from "@/lib/helpers/cldUpload";
+import { cldDelete } from "@/lib/helpers/cldDelete";
+
 export const dynamic = "force-dynamic";
 
 /* =======================================================================
             CREATE EMPLOYEE
    ======================================================================= */
-async function createFolderIfNotExists(path: string) {
-  try {
-    await fs.access(path, fs.constants.F_OK); // Check if folder exists
-  } catch (err) {
-    await fs.mkdir(path, { recursive: true }); // Create folder if it doesn't exist
-  }
-}
 
 export async function POST(req: NextRequest) {
   try {
@@ -27,38 +22,20 @@ export async function POST(req: NextRequest) {
     });
 
     if (existingEmp) {
-      throw new ApiError(404, "Employee with this email already exists");
+      throw new ApiError(400, "Employee with this email already exists");
     }
 
     // Parse courses as JSON if present
     const courses =
       formData.get("courses") && JSON.parse(String(formData.get("courses")));
 
-    // Prepare employee data
-    let employeeBody = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      mobile: formData.get("mobile"),
-      gender: formData.get("gender"),
-      designation: formData.get("designation"),
-      courses: courses,
-      image: "default.jpg",
-    };
-
-    // Create new Employee instance
-    const employee = new Employee({ ...employeeBody });
-    const newEmployee = await employee.save(); // Save new employee to the database
-
-    if (!newEmployee) {
-      throw new ApiError(500, "Error while creating new employee");
-    }
-
-    const id = newEmployee._id;
-
     let file = formData.get("image");
 
     if (!file) {
-      return NextResponse.json({ success: false, message: "No Image Found" });
+      return NextResponse.json(
+        { success: false, message: "Image is Required" },
+        { status: 400 }
+      );
     }
 
     // Check if file is actually a File object
@@ -84,28 +61,34 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Define upload paths
-    const uploadsPath = "public/uploads";
-    const targetPath = `${uploadsPath}/employees`;
-    // await createFolderIfNotExists(targetPath); // Ensure target folder exists
+    const data: any = await cldUpload(file, "intassign4/employees");
+    const imageObj = {
+      publicId: data?.public_id,
+      imageUrl: data?.secure_url,
+    };
 
-    // Copy file data into buffer and write to target path
-    const byteData = await file.arrayBuffer();
-    const buffer = Buffer.from(byteData);
-    const fileName = `${id}.${ext}`;
-    const imagePath = `${targetPath}/${fileName}`;
-    await writeFile(imagePath, buffer); // Write file to target path
+    // Prepare employee data
+    let employeeBody = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      mobile: formData.get("mobile"),
+      gender: formData.get("gender"),
+      designation: formData.get("designation"),
+      courses,
+      imageObj,
+    };
 
-    // Update employee record with image filename
-    const updatedEmp = await Employee.findByIdAndUpdate(
-      id,
-      { image: fileName },
-      { new: true }
-    );
+    // Create new Employee instance
+    const employee = new Employee({ ...employeeBody });
+    const newEmployee = await employee.save(); // Save new employee to the database
 
-    // Return success response with updated employee data
+    if (!newEmployee) {
+      await cldDelete(imageObj.publicId);
+      throw new ApiError(500, "Error while creating new employee");
+    }
+
     return NextResponse.json(
-      { success: true, data: updatedEmp },
+      { success: true, data: newEmployee, message: "Successfully Created!" },
       { status: 201 }
     );
   } catch (error) {
